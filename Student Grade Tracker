@@ -1,0 +1,40 @@
+def get_subject_grades(subject):
+    grades = []
+    while True:
+        grade = input(f"Enter grade for {subject} (or 'done' to finish): ")
+        if grade.lower() == 'done':
+            break
+        try:
+            grade = float(grade)
+            if 0 <= grade <= 100:
+                grades.append(grade)
+            else:
+                print("Please enter a grade between 0 and 100.")
+        except ValueError:
+            print("Invalid input! Please enter a valid grade.")
+    return grades
+
+def calculate_average_grades(grades_dict):
+    total_marks = 0
+    total_subjects = 0
+    for subject, grades in grades_dict.items():
+        total_marks += sum(grades)
+        total_subjects += len(grades)
+        print(f"Average grade for {subject}: {sum(grades) / len(grades):.2f}")
+    print(f"Overall average grade: {total_marks / total_subjects:.2f}")
+
+def main():
+    grades_dict = {}
+    while True:
+        subject = input("Enter subject name (or 'done' to finish): ")
+        if subject.lower() == 'done':
+            break
+        grades = get_subject_grades(subject)
+        grades_dict[subject] = grades
+    if grades_dict:
+        calculate_average_grades(grades_dict)
+    else:
+        print("No grades entered.")
+
+if __name__ == "__main__":
+    main()
